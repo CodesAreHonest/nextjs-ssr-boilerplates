@@ -1,4 +1,4 @@
-import { actionTypes } from './redux/actions'
+import * as actionTypes from "./types";
 
 export const exampleInitialState = {
     count: 0,
@@ -6,15 +6,15 @@ export const exampleInitialState = {
     lastUpdate: 0,
     light: false,
     placeholderData: null
-}
+};
 
-function reducer(state = exampleInitialState, action) {
+function reducers(state = exampleInitialState, action) {
     switch ( action.type ) {
         case actionTypes.FAILURE:
             return {
                 ...state,
                 ...{ error: action.error }
-            }
+            };
 
         case actionTypes.INCREMENT:
             return {
@@ -51,4 +51,4 @@ function reducer(state = exampleInitialState, action) {
     }
 }
 
-export default reducer
+export default reducers
