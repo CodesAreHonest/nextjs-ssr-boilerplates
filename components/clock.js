@@ -1,4 +1,15 @@
-export default ({ lastUpdate, light }) => {
+import React from 'react'
+
+const pad = n => (n < 10 ? `0${n}` : n);
+
+const format = t => {
+    const hours = t.getUTCHours();
+    const minutes = t.getUTCMinutes();
+    const seconds = t.getUTCSeconds();
+    return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`
+};
+
+function Clock({ lastUpdate, light }) {
     return (
         <div className={light ? 'light' : ''}>
             {format(new Date(lastUpdate))}
@@ -10,7 +21,6 @@ export default ({ lastUpdate, light }) => {
           font: 50px menlo, monaco, monospace;
           background-color: #000;
         }
-
         .light {
           background-color: #999;
         }
@@ -19,4 +29,4 @@ export default ({ lastUpdate, light }) => {
     )
 }
 
-const format = t => t.toJSON().slice(11, 19) // cut off except hh:mm:ss
+export default Clock

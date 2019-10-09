@@ -3,10 +3,24 @@ import App from 'next/app';
 import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../styled/theme/default';
-import withReduxStore from "../lib/with-redux-store";
 import { Provider } from 'react-redux';
+import withRedux from "next-redux-wrapper";
+import withReduxSaga from "next-redux-saga";
+
+import createStore from "../store";
 
 class MyApp extends App {
+
+    static async getInitialProps({ Component, ctx }) {
+        let pageProps = {};
+
+        if ( Component.getInitialProps ) {
+            pageProps = await Component.getInitialProps({ ctx })
+        }
+
+        return { pageProps };
+    }
+
     componentDidMount() {
         // Remove the server-side injected CSS.
         const jssStyles = document.querySelector('#jss-server-side');
@@ -16,13 +30,13 @@ class MyApp extends App {
     }
 
     render() {
-        const { Component, pageProps, reduxStore } = this.props;
+        const { Component, pageProps, store } = this.props;
 
         return (
             <ThemeProvider theme={theme}>
                 {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
                 <CssBaseline/>
-                <Provider store={reduxStore}>
+                <Provider store={store}>
                     <Component {...pageProps} />
                 </Provider>
             </ThemeProvider>
@@ -30,4 +44,4 @@ class MyApp extends App {
     }
 }
 
-export default withReduxStore(MyApp);
+export default withRedux(createStore)(withReduxSaga(MyApp));
