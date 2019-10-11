@@ -33,4 +33,8 @@ function Page({
     )
 }
 
-export default connect(state => state)(Page)
+const mapStateToProps = ({sample}) => {
+    return sample
+}
+
+export default connect(mapStateToProps, null)(Page)

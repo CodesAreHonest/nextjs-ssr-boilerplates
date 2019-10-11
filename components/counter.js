@@ -17,7 +17,7 @@ class Counter extends Component {
     }
 
     render() {
-        const { count } = this.props
+        const { count } = this.props;
         return (
             <div>
                 <style jsx>{`
@@ -36,5 +36,9 @@ class Counter extends Component {
     }
 }
 
-const mapStateToProps = ({ count }) => ({ count })
+const mapStateToProps = ({sample}) => {
+    return {
+        count: sample.count
+    }
+}
 export default connect(mapStateToProps)(Counter)

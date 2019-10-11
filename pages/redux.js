@@ -12,7 +12,7 @@ class Other extends React.Component {
     }
 
     componentDidMount() {
-        this.props.dispatch(startClock())
+        this.props.startClock();
     }
 
     render() {
@@ -20,4 +20,9 @@ class Other extends React.Component {
     }
 }
 
-export default connect()(Other)
+const mapDispatchToProps = dispatch => ({
+    startClock: () =>
+        dispatch(startClock())
+});
+
+export default connect(null, mapDispatchToProps)(Other)
